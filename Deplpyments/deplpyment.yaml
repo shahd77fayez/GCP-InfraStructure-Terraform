@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-app
+  template:
+    metadata:
+      labels:
+        app: python-app
+    spec:
+      containers:
+      - name: python-app
+        image: us-central1-docker.pkg.dev/elated-bus-460108-d0/shahd-repo/pythonapp
+        ports:
+        - containerPort: 8000
+        env:
+        - name: ENVIRONMENT
+          value: "DEV"
+        - name: HOST
+          value: "localhost"
+        - name: REDIS_HOST
+          value: "redis"
+        - name: REDIS_PORT
+          value: "6379"
+        - name: REDIS_DB
+          value: "0"
